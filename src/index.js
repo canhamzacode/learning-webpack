@@ -1,19 +1,37 @@
 import "./styles/style.css";
+import images from "./js/images";
 const container = document.getElementById("container");
 const modal = document.querySelector(".modal");
 import closeIcon from "./images/close-circle.png";
 const closeBtn = document.createElement("button");
 const closeImg = document.createElement("img");
+const lightBox = document.createElement("div");
+const lightBoxImg = document.createElement("img");
 
 closeImg.src = closeIcon;
-
-closeBtn.innerHTML = closeBtn;
 closeBtn.classList = "closeBtn";
+closeBtn.appendChild(closeImg);
+lightBox.classList = "lightBox";
+lightBoxImg.classList = "lightBoxImg";
+lightBox.appendChild(lightBoxImg);
 
-modal.innerHTML = closeBtn;
+modal.append(closeBtn, lightBox);
 
 modal.classList.add("hide");
-import images from "./js/images";
+
+const toggleModal = () => {
+  if (modal.classList.contains("hide")) {
+    modal.classList.remove("hide");
+    modal.classList.add("show");
+  } else {
+    modal.classList.remove("show");
+    modal.classList.add("hide");
+  }
+};
+
+closeBtn.addEventListener("click", () => {
+  toggleModal();
+});
 
 for (let i = 0; i < images.length; i++) {
   const img = document.createElement("img");
@@ -27,10 +45,10 @@ for (let i = 0; i < images.length; i++) {
 const renderedImages = document.querySelectorAll(".image");
 renderedImages.forEach((image, index) => {
   image.addEventListener("click", () => {
-    modal.classList.remove("hide");
-    modal.classList.add("show");
+    toggleModal();
+    lightBoxImg.src = images[index];
     console.log("Image clicked", index);
   });
 });
 
-console.log("Welcome to the Webpack 4 Starter!");
+console.log("Welcome to the Webpack I hope you enjoy your stay");
